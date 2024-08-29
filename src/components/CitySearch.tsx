@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { WeatherData } from '../types/WeatherData';
-import { CityData } from '../types/CityData'
+import { CityData } from '../types/CityData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 interface CitySearchProps {
   onWeatherUpdate: (weatherData: WeatherData | null, cityData: CityData | null) => void;
@@ -14,7 +16,7 @@ const CitySearch: React.FC<CitySearchProps> = ({ onWeatherUpdate }) => {
 
   const fetchCityCoordinates = async (cityName: string): Promise<CityData | null> => {
     const apiUrl = `https://www.meteoblue.com/en/server/search/query3?query=${encodeURIComponent(cityName)}&apikey=DEMOKEY`;
-    
+
     try {
       const response = await fetch(apiUrl);
       if (!response.ok) {
@@ -109,20 +111,24 @@ const CitySearch: React.FC<CitySearchProps> = ({ onWeatherUpdate }) => {
 
   return (
     <div className="text-white">
-      <form onSubmit={handleSubmit} className="mb-4">
+      <form onSubmit={handleSubmit} className="mb-4 relative">
         <input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           placeholder="Entrez une ville"
-          className="w-full px-3 py-2 border rounded-md mb-2 text-gray-800"
+          className="w-full px-3 py-2 pr-10 border rounded-md mb-2 text-gray-800"
         />
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-colors">
-          Rechercher
+        <button
+          type="submit"
+          className="absolute right-1 top-5 transform -translate-y-1/2 text-blue-500 hover:text-blue-600 transition-colors px-2 py-1 rounded-full hover:bg-gray-200"
+          disabled={!city.trim()}
+        >
+          <FontAwesomeIcon icon={faSearch} className="w-4 h-4" />
         </button>
       </form>
-      <button 
-        onClick={handleGeolocation} 
+      <button
+        onClick={handleGeolocation}
         className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition-colors mb-4"
       >
         Utiliser ma position

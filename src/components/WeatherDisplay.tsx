@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { WeatherData } from '../types/WeatherData';
-import { CityData } from '../types/CityData'; // Ajoutez cette ligne
+import { CityData } from '../types/CityData';
 import { getWeatherIcon, getBackgroundColor, getWeatherDescription } from '../utils/weatherUtils';
-import { faSun, faMoon, faMapMarkerAlt, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 interface WeatherDisplayProps {
   weatherData: WeatherData;
@@ -45,7 +45,7 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData, cityInfo }
     const isDay = index >= Math.floor(sunriseHour) && index < Math.floor(sunsetHour);
     return {
       time: index,
-      temperature: Math.round(weatherData.data_day.temperature_mean[0] + 
+      temperature: Math.round(weatherData.data_day.temperature_mean[0] +
         (Math.sin((index - 6) * Math.PI / 12) * 3)), // Simulation de variation de température
       icon: isDay ? faSun : faMoon,
       precipitation: weatherData.data_day.precipitation_probability[0],
@@ -55,6 +55,8 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData, cityInfo }
     };
   });
 
+  const backgroundColor = getBackgroundColor(currentWeather.temperature);
+
   useEffect(() => {
     if (scrollRef.current) {
       const scrollPosition = currentHour * 64; // 64px est la largeur de chaque élément horaire
@@ -62,14 +64,18 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData, cityInfo }
     }
   }, [currentHour]);
 
+  console.log(backgroundColor.replace('bg-', 'rgb-'));
+
   return (
     <div className="h-full overflow-auto bg-blue-100">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 min-h-full">
         {/* Colonne de gauche */}
-        <div className={`${getBackgroundColor(currentWeather.temperature)} text-white p-8 rounded-lg relative overflow-hidden flex flex-col justify-between h-full`}>
+        <div className={`${backgroundColor} text-white p-8 rounded-lg relative overflow-hidden flex flex-col justify-between h-full min-w-250px`}>
           {/* Partie supérieure : température et conditions météo */}
           <div>
-            <div className="text-8xl font-bold mb-4">{currentWeather.temperature}°</div>
+            <div className="text-8xl font-bold mb-4">
+              {currentWeather.temperature.toFixed(1)}°
+            </div>
             <div className="text-4xl mb-8 flex items-center">
               <FontAwesomeIcon icon={getWeatherIcon(currentWeather.pictocode)} className="mr-4 text-6xl" />
               {getWeatherDescription(currentWeather.pictocode)}
@@ -77,25 +83,25 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData, cityInfo }
           </div>
 
           <div className="flex flex-col items-center text-center mt-auto">
-          {cityInfo && (
-                <div className="mb-4 text-blue">
-                  <h2 className="text-4xl font-bold">
-                  {new Date().toLocaleDateString('fr-FR', { 
+            {cityInfo && (
+              <div className="mb-4 text-blue">
+                <h2 className="text-4xl font-bold">
+                  {new Date().toLocaleDateString('fr-FR', {
                     weekday: 'long',
                     day: 'numeric',
                   }).replace(/^\w/, c => c.toUpperCase())}
-                  </h2>
-                  <h2 className="text-2xl font-bold">
-                    {new Date().toLocaleDateString('fr-FR', { 
-                      month: 'long',
-                      year: 'numeric',
-                    }).replace(/^\w/, c => c.toUpperCase())}
-                  </h2>
-                  <p>{cityInfo.timezone}</p>
-                </div>
-              )}
+                </h2>
+                <h2 className="text-2xl font-bold">
+                  {new Date().toLocaleDateString('fr-FR', {
+                    month: 'long',
+                    year: 'numeric',
+                  }).replace(/^\w/, c => c.toUpperCase())}
+                </h2>
+                <p>{cityInfo.timezone}</p>
+              </div>
+            )}
           </div>
-          
+
           {/* Partie inférieure : informations sur la ville */}
           <div className="mt-auto">
             <div className="bg-white bg-opacity-20 rounded-lg p-4 shadow-lg mb-4">
@@ -113,71 +119,76 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData, cityInfo }
         </div>
 
         {/* Colonne centrale et droite */}
-        <div className="col-span-2 bg-white rounded-lg p-8 shadow-lg overflow-auto h-full">
-          <h3 className="text-2xl font-bold mb-4">Prochaines heures</h3>
-          <div className="overflow-x-auto" ref={scrollRef}>
-            <div className="flex space-x-4 pb-4" style={{ minWidth: "max-content" }}>
-              {hourlyForecast.map((hour, index) => (
-                <div 
-                  key={index} 
-                  className={`flex flex-col items-center w-16 p-2 rounded-lg ${
-                    hour.time === currentHour ? 'bg-blue-200 shadow-md' : ''
-                  }`}
-                >
-                  <div className="text-sm">{hour.time.toString().padStart(2, '0')}h</div>
-                  <FontAwesomeIcon 
-                    icon={hour.icon} 
-                    className={`my-2 ${
-                      hour.isSunrise ? 'text-amber-600' : 
-                      hour.isSunset ? 'text-purple-600' : 
-                      hour.isDay ? 'text-yellow-400' : 'text-gray-600'
-                    }`}
-                    title={
-                      hour.isSunrise ? 'Lever du soleil' : 
-                      hour.isSunset ? 'Coucher du soleil' : 
-                      hour.isDay ? 'Jour' : 'Nuit'
-                    }
-                  />
-                  <div className="font-bold">{hour.temperature}°</div>
-                  <div className="text-xs">{hour.precipitation}%</div>
-                </div>
-              ))}
+        <div className="col-span-2 bg-white rounded-lg p-8 shadow-lg overflow-auto h-full flex flex-col justify-between">
+          {/* Section Prochaines heures (en haut) */}
+          <div>
+            <h3 className="text-2xl font-bold mb-4">Prochaines heures</h3>
+            <div className="overflow-x-auto">
+              <div className="flex space-x-4 pb-4" style={{ minWidth: "max-content" }}>
+                {hourlyForecast.map((hour, index) => (
+                  <div
+                    key={index}
+                    className={`flex flex-col items-center w-16 p-2 rounded-lg ${hour.time === currentHour ? 'bg-blue-200 shadow-md' : ''
+                      }`}
+                  >
+                    <div className="text-sm">{hour.time.toString().padStart(2, '0')}h</div>
+                    <FontAwesomeIcon
+                      icon={hour.icon}
+                      className={`my-2 ${hour.isSunrise ? 'text-amber-600' :
+                        hour.isSunset ? 'text-purple-600' :
+                          hour.isDay ? 'text-yellow-400' : 'text-gray-600'
+                        }`}
+                      title={
+                        hour.isSunrise ? 'Lever du soleil' :
+                          hour.isSunset ? 'Coucher du soleil' :
+                            hour.isDay ? 'Jour' : 'Nuit'
+                      }
+                    />
+                    <div className="font-bold">{hour.temperature}°</div>
+                    <div className="text-xs">{hour.precipitation}%</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-          
-          <h3 className="text-2xl font-bold mt-8 mb-4">Détails météo du jour</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <WeatherDetail title="Humidité" value={`${todayForecast.humidity}%`} icon="tint" />
-            <WeatherDetail title="Vent" value={`${todayForecast.windspeed} km/h`} icon="wind" />
-            <WeatherDetail title="Précipitations" value={`${todayForecast.precipitation} mm`} icon="cloud-rain" />
-            <WeatherDetail title="Indice UV" value={todayForecast.uv_index.toString()} icon="sun" />
-            <WeatherDetail title="Ressenti" value={`${todayForecast.felttemperature}°`} icon="thermometer-half" />
-            <WeatherDetail title="Risque de pluie" value={`${todayForecast.precipitation_probability}%`} icon="umbrella" />
+
+          {/* Section Détails météo du jour (au milieu) */}
+          <div className="my-auto">
+            <h3 className="text-2xl font-bold mb-4">Détails météo du jour</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <WeatherDetail title="Humidité" value={`${todayForecast.humidity}%`} icon="tint" />
+              <WeatherDetail title="Vent" value={`${todayForecast.windspeed} km/h`} icon="wind" />
+              <WeatherDetail title="Précipitations" value={`${todayForecast.precipitation} mm`} icon="cloud-rain" />
+              <WeatherDetail title="Indice UV" value={todayForecast.uv_index.toString()} icon="sun" />
+              <WeatherDetail title="Ressenti" value={`${todayForecast.felttemperature}°`} icon="thermometer-half" />
+              <WeatherDetail title="Risque de pluie" value={`${todayForecast.precipitation_probability}%`} icon="umbrella" />
+            </div>
           </div>
 
-          <h3 className="text-2xl font-bold mt-8 mb-4">Prévisions sur 7 jours</h3>
-          <table className="w-full">
-            <thead>
-              <tr className="text-left">
-                <th className="py-2">Date</th>
-                <th className="py-2">Météo</th>
-                <th className="py-2">Max</th>
-                <th className="py-2">Min</th>
-              </tr>
-            </thead>
-            <tbody>
-              {weatherData.data_day.time.map((date: string, index: number) => (
-                <tr key={date} className="border-b">
-                  <td className="py-2">{new Date(date).toLocaleDateString('fr-FR', { weekday: 'short', month: 'short', day: 'numeric' })}</td>
-                  <td className="py-2">
-                    <FontAwesomeIcon icon={getWeatherIcon(weatherData.data_day.pictocode[index])} className="mr-2" />
-                  </td>
-                  <td className="py-2">{weatherData.data_day.temperature_max[index]}°</td>
-                  <td className="py-2">{weatherData.data_day.temperature_min[index]}°</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {/* Section Prévisions sur 7 jours (en bas) */}
+          <div>
+            <h3 className="text-2xl font-bold mb-2">Prévisions sur 7 jours</h3>
+            <div className="overflow-x-auto">
+              <div className="flex justify-between">
+                {weatherData.data_day.time.map((date: string, index: number) => {
+                  const dayName = new Date(date).toLocaleDateString('fr-FR', { weekday: 'short' });
+                  return (
+                    <div key={date} className="flex flex-col items-center text-center px-1">
+                      <div className="font-bold">{dayName.charAt(0).toUpperCase() + dayName.slice(1)}</div>
+                      <FontAwesomeIcon
+                        icon={getWeatherIcon(weatherData.data_day.pictocode[index])}
+                        className="text-2xl my-1"
+                      />
+                      <div className="text-xs">
+                        <div className="font-bold">{weatherData.data_day.temperature_max[index]}°</div>
+                        <div>{weatherData.data_day.temperature_min[index]}°</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

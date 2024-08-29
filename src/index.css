@@ -22,3 +22,26 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 		monospace;
 }
+
+/* Styles pour la barre de défilement */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(156, 163, 175, 0.5);
+	border-radius: 10px;  /* Augmenté pour un aspect plus arrondi */
+	border: 2px solid transparent;  /* Ajoute une bordure transparente */
+	background-clip: content-box;  /* Applique le fond seulement au contenu */
+ }
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(156, 163, 175, 0.8);
+}
+
+/* Pour Firefox */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}

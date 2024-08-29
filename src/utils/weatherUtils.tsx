@@ -1,11 +1,11 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { 
-  faSun, faCloudSun, faCloud, faCloudRain, faCloudShowersHeavy, 
+import {
+  faSun, faCloudSun, faCloud, faCloudRain, faCloudShowersHeavy,
   faSnowflake, faBolt, faSmog
 } from '@fortawesome/free-solid-svg-icons';
 
 export const getWeatherIcon = (pictocode: number): IconDefinition => {
-  switch(pictocode) {
+  switch (pictocode) {
     case 1: case 2: return faSun;
     case 3: case 4: return faCloudSun;
     case 5: case 6: case 7: return faCloud;
@@ -26,7 +26,7 @@ export const getBackgroundColor = (temperature: number): string => {
 };
 
 export const getWeatherDescription = (pictocode: number): string => {
-  switch(pictocode) {
+  switch (pictocode) {
     case 1: case 2: return 'Ensoleillé';
     case 3: case 4: return 'Partiellement nuageux';
     case 5: case 6: case 7: return 'Nuageux';
