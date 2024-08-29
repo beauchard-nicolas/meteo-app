@@ -98,10 +98,6 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData, cityInfo }
           
           {/* Partie inférieure : informations sur la ville */}
           <div className="mt-auto">
-            <div className="flex items-center text-2xl font-bold mb-2">
-            
-            {weatherData.metadata.name || "Localisation inconnue"}
-            </div>
             <div className="bg-white bg-opacity-20 rounded-lg p-4 shadow-lg mb-4">
               {cityInfo && (
                 <div className="text-gray-800">
