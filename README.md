@@ -6,20 +6,10 @@ Cette application météo moderne et intuitive permet aux utilisateurs de consul
 
 ## 🖼️ Aperçu de l'application
 
-<div style="display: flex; justify-content: space-between;">
-  <div style="flex: 1; text-align: center;">
-    <img src="./public/img/app-screenshot.png" alt="Vue principale" width="250"/>
-    <p><em>Vue principale</em></p>
-  </div>
-  <div style="flex: 1; text-align: center;">
-    <img src="./public/img/search-interface.png" alt="Interface de recherche" width="250"/>
-    <p><em>Interface de recherche</em></p>
-  </div>
-  <div style="flex: 1; text-align: center;">
-    <img src="./public/img/detailed-forecast.png" alt="Prévisions détaillées" width="250"/>
-    <p><em>Prévisions détaillées</em></p>
-  </div>
-</div>
+| Vue principale | Interface de recherche | Prévisions détaillées |
+|:--------------:|:----------------------:|:---------------------:|
+| ![Vue principale](./public/img/app-screenshot.png) | ![Interface de recherche](./public/img/search-interface.png) | ![Prévisions détaillées](./public/img/smartphone-interface.png) |
+| *Vue principale de l'application météo* | *Interface de recherche de ville* | *Affichage des prévisions détaillées* |
 
 ## 🛠️ Stack technique
 
