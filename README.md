@@ -43,10 +43,6 @@ Paramètres :
 3. Lancez l'application en mode développement avec `npm start`
 4. Ouvrez [http://localhost:3000](http://localhost:3000) pour voir l'application dans votre navigateur
 
-## 📚 Pour en savoir plus
-
-Pour approfondir vos connaissances sur React, consultez la [documentation React](https://reactjs.org/).
-
 ## 🤝 Contribution
 
 Les contributions à ce projet sont les bienvenues. N'hésitez pas à ouvrir une issue ou à soumettre une pull request.
