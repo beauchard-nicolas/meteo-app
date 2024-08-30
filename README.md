@@ -12,7 +12,7 @@ Cette application météo moderne et intuitive permet aux utilisateurs de consul
 ![Interface de recherche](./public/img/search-interface.png)
 *Interface de recherche de ville*
 
-![Prévisions détaillées](./public/img/detailed-forecast.png)
+![Prévisions détaillées](./public/img/smartphone-interface.png)
 *Affichage des prévisions détaillées*
 
 ## 🛠️ Stack technique
@@ -28,9 +28,8 @@ Cette application météo moderne et intuitive permet aux utilisateurs de consul
 L'application utilise l'API de Meteoblue pour permettre aux utilisateurs de rechercher une ville. Cette [API](https://www.meteoblue.com/en/server/search/query3?query=${cityName}&apikey={API_Key}) renvoie les coordonnées géographiques de la ville sélectionnée.
 
 Paramètres :
-- `cityName` : Nom de la ville à rechercher
 - `API_Key` : clé API Meteoblue
-
+- `cityName` : Nom de la ville à rechercher
 
 ### Données météorologiques
 Une fois la ville sélectionnée, l'application fait appel à l'[API](https://my.meteoblue.com/packages/basic-day_current_clouds-day_sunmoon?apikey={API_Key}&lat=${lat}&lon=${lon}&asl=108&format=json&forecast_days=7) météo de Meteoblue pour récupérer les informations météorologiques détaillées.
