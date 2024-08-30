@@ -1,46 +1,55 @@
-# Getting Started with Create React App
+# 🌦️ Application Météo React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🎯 Objectif du projet
 
-## Available Scripts
+Cette application météo moderne et intuitive permet aux utilisateurs de consulter les prévisions météorologiques pour n'importe quelle ville dans le monde. Elle offre des informations détaillées sur les conditions météorologiques actuelles et les prévisions à court terme.
 
-In the project directory, you can run:
+## 🖼️ Aperçu de l'application
 
-### `npm start`
+![Capture d'écran de l'application](./public/img/app-screenshot.png)
+*Vue principale de l'application météo*
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Interface de recherche](./public/img/search-interface.png)
+*Interface de recherche de ville*
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+![Prévisions détaillées](./public/img/detailed-forecast.png)
+*Affichage des prévisions détaillées*
 
-### `npm test`
+## 🛠️ Stack technique
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React**: Bibliothèque JavaScript pour la construction de l'interface utilisateur
+- **TypeScript**: Superset typé de JavaScript pour un développement plus robuste
+- **Tailwind CSS**: Framework CSS utilitaire pour un design rapide et personnalisable
+- **Font Awesome**: Bibliothèque d'icônes pour une interface utilisateur attrayante
 
-### `npm run build`
+## 🔍 Fonctionnalités principales
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Recherche de ville
+L'application utilise l'API de Meteoblue pour permettre aux utilisateurs de rechercher une ville. Cette API renvoie les coordonnées géographiques de la ville sélectionnée.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+https://www.meteoblue.com/en/server/search/query3?query=${encodeURIComponent(cityName)}&apikey={API_Key}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Données météorologiques
+Une fois la ville sélectionnée, l'application fait appel à l'API météo de Meteoblue pour récupérer les informations météorologiques détaillées.
 
-### `npm run eject`
+https://my.meteoblue.com/packages/basic-day_current_clouds-day_sunmoon?apikey={API_Key}&lat=${lat}&lon=${lon}&asl=108&format=json&forecast_days=7;
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🚀 Comment démarrer
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clonez ce dépôt
+2. Installez les dépendances avec `npm install`
+3. Lancez l'application en mode développement avec `npm start`
+4. Ouvrez [http://localhost:3000](http://localhost:3000) pour voir l'application dans votre navigateur
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 📚 Pour en savoir plus
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Pour approfondir vos connaissances sur React, consultez la [documentation React](https://reactjs.org/).
 
-## Learn More
+## 🤝 Contribution
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Les contributions à ce projet sont les bienvenues. N'hésitez pas à ouvrir une issue ou à soumettre une pull request.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
