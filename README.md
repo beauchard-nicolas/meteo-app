@@ -25,14 +25,11 @@ Cette application météo moderne et intuitive permet aux utilisateurs de consul
 ## 🔍 Fonctionnalités principales
 
 ### Recherche de ville
-L'application utilise l'API de Meteoblue pour permettre aux utilisateurs de rechercher une ville. Cette API renvoie les coordonnées géographiques de la ville sélectionnée.
+L'application utilise l'API de Meteoblue pour permettre aux utilisateurs de rechercher une ville. Cette [API](https://www.meteoblue.com/en/server/search/query3?query=${encodeURIComponent(cityName)}&apikey={API_Key}) renvoie les coordonnées géographiques de la ville sélectionnée.
 
-https://www.meteoblue.com/en/server/search/query3?query=${encodeURIComponent(cityName)}&apikey={API_Key}
 
 ### Données météorologiques
-Une fois la ville sélectionnée, l'application fait appel à l'API météo de Meteoblue pour récupérer les informations météorologiques détaillées.
-
-https://my.meteoblue.com/packages/basic-day_current_clouds-day_sunmoon?apikey={API_Key}&lat=${lat}&lon=${lon}&asl=108&format=json&forecast_days=7;
+Une fois la ville sélectionnée, l'application fait appel à l'[API](https://my.meteoblue.com/packages/basic-day_current_clouds-day_sunmoon?apikey={API_Key}&lat=${lat}&lon=${lon}&asl=108&format=json&forecast_days=7) météo de Meteoblue pour récupérer les informations météorologiques détaillées.
 
 ## 🚀 Comment démarrer
 
