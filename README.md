@@ -13,10 +13,10 @@ Cette application météo moderne et intuitive permet aux utilisateurs de consul
 
 ## 🛠️ Stack technique
 
-- **React**: Bibliothèque JavaScript pour la construction de l'interface utilisateur
-- **TypeScript**: Superset typé de JavaScript pour un développement plus robuste
-- **Tailwind CSS**: Framework CSS utilitaire pour un design rapide et personnalisable
-- **Font Awesome**: Bibliothèque d'icônes pour une interface utilisateur attrayante
+- **'React'**: Bibliothèque JavaScript pour la construction de l'interface utilisateur
+- **'TypeScript'**: Superset typé de JavaScript pour un développement plus robuste
+- **'Tailwind CSS'**: Framework CSS utilitaire pour un design rapide et personnalisable
+- **'Font Awesome'**: Bibliothèque d'icônes pour une interface utilisateur attrayante
 
 ## 🔍 Fonctionnalités principales
 
